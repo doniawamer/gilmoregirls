@@ -1,95 +1,85 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useState } from "react";
+import styled from "styled-components";
+import Image from "next/image";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import Toggle from "./components/Toggle";
+import houseDark from "../assets/images/houseDark.svg";
+import houseLight from "../assets/images/houseLight.svg";
+
+import data from "../../scripts/data";
+import { Button } from "react-bootstrap";
+
+const ContainerWrap = styled(Container)`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  overflow: hidden;
+  background-color: ${({ theme, $isDark }) =>
+    $isDark
+      ? theme.palette["light"].toggleBackground
+      : theme.palette["dark"].toggleBackground};
+  color: ${({ theme }) => theme.palette["dark"].text};
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-bottom: 80px;
+`;
+
+const RowWrap = styled(Row)`
+  max-width: 80vw;
+  width: 100%;
+  height: 80vh;
+  margin: 0 auto;
+  position: relative; /* Create a stacking context */
+`;
+
+const ImageWrap = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: ${({ $hide }) => ($hide ? 0 : 1)};
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+`;
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(false);
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
+    <ContainerWrap $isDark={isDark}>
+      <Row className="p-4">
+        <Col>
+          <Toggle checked={isDark} setChecked={setIsDark} />
+        </Col>
+      </Row>
+      <RowWrap>
+        <Col className="px-5 mb-5">
+          <ImageWrap $hide={isDark}>
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+              src={houseLight}
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              alt="Stars Hollow Books"
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+          </ImageWrap>
+          <ImageWrap $hide={!isDark}>
+            <Image
+              src={houseDark}
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              alt="Stars Hollow Books"
+            />
+          </ImageWrap>
+        </Col>
+      </RowWrap>
+    </ContainerWrap>
+  );
 }
