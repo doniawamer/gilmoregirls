@@ -64,22 +64,30 @@ export default function Home() {
       </Row>
       <RowWrap>
         <Col className="px-5 mb-5">
-          <ImageWrap $hide={isDark}>
-            <Image
-              src={houseLight}
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              alt="Stars Hollow Books"
-            />
-          </ImageWrap>
-          <ImageWrap $hide={!isDark}>
-            <Image
-              src={houseDark}
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              alt="Stars Hollow Books"
-            />
-          </ImageWrap>
+          <Outdoor isDark={isDark} />
         </Col>
       </RowWrap>
     </ContainerWrap>
   );
 }
+
+const Outdoor = ({ isDark }) => {
+  return (
+    <>
+      <ImageWrap $hide={isDark}>
+        <Image
+          src={houseLight}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+          alt="Stars Hollow Books"
+        />
+      </ImageWrap>
+      <ImageWrap $hide={!isDark}>
+        <Image
+          src={houseDark}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+          alt="Stars Hollow Books"
+        />
+      </ImageWrap>
+    </>
+  );
+};
