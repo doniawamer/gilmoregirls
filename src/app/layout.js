@@ -1,3 +1,5 @@
+"use client";
+
 import StyledComponentsRegistry from "./lib/registry";
 import ThemeProvider from "./lib/themeProvider";
 import "./globals.css";

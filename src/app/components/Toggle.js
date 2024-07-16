@@ -14,19 +14,18 @@ const Switch = styled.div`
   height: 30px;
   border-radius: 16px;
   border: 2px solid
-    ${({ theme, $checked }) =>
-      $checked
-        ? theme.palette["dark"].toggleBorder
-        : theme.palette["light"].toggleBorder};
-  background: ${({ theme, $checked }) =>
-    $checked
-      ? theme.palette["dark"].toggleBackground
-      : `url(/images/stars.svg)`};
+    ${({ theme, $isDark }) =>
+      $isDark
+        ? theme.palette.dark.toggleBorder
+        : theme.palette.light.toggleBorder};
+  background: ${({ theme, $isDark }) =>
+    $isDark ? theme.palette.dark.toggleBackground : `url(/images/stars.svg)`};
 
   background-size: auto;
   background-repeat: repeat;
   background-position: center;
   transition: background 350ms ease-in-out, border-color 350ms ease-in-out;
+  z-index: 1;
 
   &:before {
     content: "";
@@ -36,8 +35,8 @@ const Switch = styled.div`
     border-radius: 10px;
     top: 0;
     left: -4px;
-    background-image: ${({ $checked }) =>
-      $checked ? "url(/images/sun.svg)" : `url(/images/moon.svg)`};
+    background-image: ${({ $isDark }) =>
+      $isDark ? "url(/images/sun.svg)" : `url(/images/moon.svg)`};
     background-size: 24px;
     background-repeat: no-repeat;
     background-position: center;
@@ -56,20 +55,25 @@ const Input = styled.input`
 
   &:checked + ${Switch} {
     &:before {
-      transform: translate(28px, 0);
+      transform: ${({ $isDark }) => $isDark && "translate(28px, 0)"};
     }
   }
 `;
 
-const Toggle = ({ checked, setChecked }) => {
-  const handleChange = (e) => {
-    setChecked(e.target.checked);
+const Toggle = ({ isDark, toggleTheme }) => {
+  const handleChange = () => {
+    toggleTheme();
   };
 
   return (
     <Label>
-      <Input checked={checked} type="checkbox" onChange={handleChange} />
-      <Switch $checked={checked} />
+      <Input
+        checked={isDark}
+        $isDark={isDark}
+        type="checkbox"
+        onChange={handleChange}
+      />
+      <Switch $isDark={isDark} />
     </Label>
   );
 };

@@ -2,12 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   compiler: {
-    styledComponents: {
-      displayName: false,
-    },
+    styledComponents: true,
   },
   experimental: {
     serverComponentsExternalPackages: ["@acme/ui"],
+    appDir: true,
   },
 };
 

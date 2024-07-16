@@ -11,7 +11,7 @@ export const colors = {
     toggleBorder: "#0F2434",
   },
   dark: {
-    background: "#0F2434",
+    background: "#0F2334",
     text: "#FCF8F5",
 
     // toggle
