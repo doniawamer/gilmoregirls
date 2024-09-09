@@ -10,8 +10,6 @@ import Toggle from "./components/Toggle";
 
 import { Indoor } from "./components/Indoor";
 import { Outdoor } from "./components/Outdoor";
-import data from "../../scripts/data";
-
 
 const ContainerWrap = styled(Container)`
   width: 100%;
@@ -31,7 +29,6 @@ const ContainerWrap = styled(Container)`
   padding-bottom: 80px;
   position: relative;
 `;
-
 
 const StoreWrap = styled.div`
   max-width: 1920px;
@@ -56,25 +53,17 @@ const OutdoorImage = styled(Outdoor)`
 
 export default function Home() {
   const [isDark, toggleTheme] = useTheme();
-  const [showOutdoor, setShowOutdoor] = useState(true); 
-  const [showIndoor, setShowIndoor] = useState(false); 
-  const [isOutdoorInDOM, setIsOutdoorInDOM] = useState(true); 
+  const [showOutdoor, setShowOutdoor] = useState(true);
+  const [showIndoor, setShowIndoor] = useState(false);
+  const [isOutdoorInDOM, setIsOutdoorInDOM] = useState(true);
 
-  useEffect(() => {
-    const handleHideOutdoor = () => {
-      setShowOutdoor(false); 
-      setTimeout(() => {
-        setShowIndoor(true); 
-        setIsOutdoorInDOM(false); 
-      }, 600); 
-    };
-
-    window.addEventListener("click", handleHideOutdoor);
-
-    return () => {
-      window.removeEventListener("click", handleHideOutdoor);
-    };
-  }, []);
+  const handleHideOutdoor = () => {
+    setShowOutdoor(false);
+    setTimeout(() => {
+      setShowIndoor(true);
+      setIsOutdoorInDOM(false);
+    }, 600);
+  };
 
   return (
     <ContainerWrap $isDark={isDark}>
@@ -83,7 +72,7 @@ export default function Home() {
           <Toggle isDark={isDark} toggleTheme={toggleTheme} />
         </Col>
       </Row>
-      <StoreWrap>
+      <StoreWrap onClick={handleHideOutdoor}>
         {isOutdoorInDOM && (
           <FadeContainer $isVisible={showOutdoor}>
             <OutdoorImage isDark={isDark} />
@@ -94,6 +83,7 @@ export default function Home() {
           <Indoor isDark={isDark} />
         </FadeContainer>
       </StoreWrap>
+      <div id="modal-root" />
     </ContainerWrap>
   );
 }

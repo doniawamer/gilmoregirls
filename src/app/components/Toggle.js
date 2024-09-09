@@ -25,7 +25,7 @@ const Switch = styled.div`
   background-repeat: repeat;
   background-position: center;
   transition: background 350ms ease-in-out, border-color 350ms ease-in-out;
-  z-index: 1;
+  z-index: 5;
 
   &:before {
     content: "";

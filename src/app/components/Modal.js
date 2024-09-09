@@ -1,0 +1,196 @@
+import ReactDOM from "react-dom";
+import { useEffect } from "react";
+import styled, { keyframes } from "styled-components";
+
+const CHARACTER = [
+  "Lorelai Gilmore",
+  "Rory Gilmore",
+  "Emily Gilmore",
+  "Richard Gilmore",
+  "Luke Danes",
+  "Sookie St. James",
+  "Lane Kim",
+  "Paris Geller",
+  "Jess Mariano",
+  "Dean Forester",
+  "Logan Huntzberger",
+  "Michel Gerard",
+  "Kirk Gleason",
+  "Christopher Hayden",
+  "Miss Patty",
+  "Babette Dell",
+  "Jackson Belleville",
+  "Taylor Doose",
+  "Gypsy",
+  "April Nardini",
+  "Zach Van Gerbig",
+  "Brian Fuller",
+  "Mitchum Huntzberger",
+  "Sherry Tinsdale",
+  "Madeline Lynn",
+  "Louise Grant",
+  "Doyle McMaster",
+  "Marty",
+  "Tristan Dugray",
+  "Francie Jarvis",
+  "Trix Gilmore",
+  "Jason Stiles",
+  "Lucy",
+  "Olivia",
+  "Anna Nardini",
+  "Mia Bass",
+  "Liz Danes",
+  "TJ",
+  "Trix Gilmore",
+  "Jamie",
+  "Gigi Hayden",
+  "Colin McCrae",
+  "Finn",
+  "Honor Huntzberger",
+  "Asher Fleming",
+  "Paul Anka",
+  "The Troubadour",
+  "Digger",
+  "Robert Grimaldi",
+];
+
+const slideUp = keyframes`
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
+const ModalWrap = styled.div`
+  position: fixed;
+  top: 20%;
+  left: calc(50% - 184px);
+  transform: translate(-50%, -50%);
+  width: 430.16px;
+  height: 657.29px;
+  background: url("/images/modal.svg") no-repeat center center;
+  background-size: contain;
+  padding: 20px;
+  animation: ${slideUp} 0.5s ease forwards;
+  z-index: 7;
+
+  h2 {
+    font-size: 12px;
+    color: #333;
+    margin-top: 45px;
+    padding-left: 80px;
+    padding-right: 25px;
+  }
+
+  > p {
+    font-size: 12px;
+    color: #333;
+
+    margin-top: 27px;
+    padding-left: 80px;
+    padding-right: 25px;
+  }
+`;
+
+const Checkout = styled.div`
+  margin-top: 92px;
+  padding: 0 40px;
+
+  p {
+    font-size: 12px;
+    color: #333;
+    display: flex;
+    column-gap: 55px;
+  }
+
+  .date {
+    color: #9a465d;
+    font-weight: 600;
+    width: 60px;
+  }
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 6;
+`;
+
+const getRandomDate = (start, end) => {
+  const date = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+  return date;
+};
+
+const formatDate = (date) => {
+  const options = { month: "short", year: "2-digit" };
+  const dateParts = date.toLocaleDateString("en-US", options).split(" ");
+  return `${dateParts[0]} '${dateParts[1]}`;
+};
+
+const getRandomCharacters = (array, max = 3) => {
+  const shuffled = [...array].sort(() => 0.5 - Math.random());
+  const selectedCharacters = shuffled.slice(0, max);
+
+  const charactersWithDates = selectedCharacters.map((character) => {
+    const randomDate = getRandomDate(new Date(2000, 0, 1), new Date());
+    return { name: character, date: formatDate(randomDate) };
+  });
+
+  return charactersWithDates.sort(
+    (a, b) => new Date("01 " + a.date) - new Date("01 " + b.date)
+  );
+};
+
+const Modal = ({ showModal, selectedBook, onClose }) => {
+  const checkout = getRandomCharacters(CHARACTER);
+  console.log("checkout", checkout);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (e.target.id === "overlay") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("click", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [onClose]);
+
+  if (!showModal) return null;
+
+  return ReactDOM.createPortal(
+    <>
+      <Overlay id="overlay" />
+      <ModalWrap>
+        <h2>{selectedBook?.author}</h2>
+        <p>{selectedBook?.name}</p>
+        <div>
+          <Checkout>
+            {checkout?.map((char, i) => (
+              <p key={`${i}-${char.name}`}>
+                <span className="date">{char.date}</span>
+                <span>{char.name}</span>
+              </p>
+            ))}
+          </Checkout>
+        </div>
+      </ModalWrap>
+    </>,
+    document.getElementById("modal-root")
+  );
+};
+
+export default Modal;
