@@ -36,7 +36,10 @@ rl.on("line", (line) => {
           data.push(currentSeason);
         }
 
-        const newSeason = new Season(season, title);
+        const formattedSeasonName = title?.includes(":")
+          ? title.split(":")[1]
+          : season;
+        const newSeason = new Season(formattedSeasonName, title);
         const newEpisode = newSeason.addEpisode(episode);
 
         seasonName = season;
@@ -65,9 +68,9 @@ rl.on("line", (line) => {
 rl.on("close", () => {
   data.push(currentSeason);
 
-  // export data 
+  // export data
   const dataString = JSON.stringify(data, null, 2);
   const fileContent = `module.exports = ${dataString};`;
 
-  fs.writeFileSync('./data.js', fileContent);
+  fs.writeFileSync("./data.js", fileContent);
 });

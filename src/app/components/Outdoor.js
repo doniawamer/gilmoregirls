@@ -38,9 +38,9 @@ const StoreImg = styled(Image)`
   z-index: 0;
 `;
 
-export const Outdoor = ({ isDark }) => {
+export const Outdoor = ({ isDark, ...props }) => {
   return (
-    <RowWrap>
+    <RowWrap {...props}>
       <Col className="px-5 mb-5">
         <ImageWrap $hide={isDark}>
           <StoreImg src={houseLight} alt="Stars Hollow Books" priority />

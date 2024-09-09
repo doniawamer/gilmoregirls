@@ -45,7 +45,7 @@ export default function NotFound() {
     <ContainerWrap $isDark={isDark}>
       <Row className="p-4">
         <Col>
-          <Toggle checked={isDark} setChecked={toggleTheme} />
+          <Toggle isDark={isDark} toggleTheme={toggleTheme} />
         </Col>
       </Row>
       <Title $isDark={isDark}>

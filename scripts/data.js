@@ -1331,7 +1331,7 @@ module.exports = [
   },
   {
     "name": "Gilmore Girls: A Year in the Life",
-    "season": "Season 1",
+    "season": " A Year in the Life",
     "episodes": [
       {
         "name": "Winter",
