@@ -81,7 +81,7 @@ const Books = styled.div`
 
 const BookStoreWrap = styled.div`
   position: absolute;
-  left: 35%;
+  left: 32%;
   top: 50%;
   transform: translate(0%, -50%);
 
@@ -99,7 +99,7 @@ const DropdownSeason = styled(Dropdown)`
   left: 16%;
   top: 46%;
   @media (${device.xxl}) {
-    left: 20%;
+    left: 19%;
   }
   @media (${device.xxxl}) {
     left: 23%;
@@ -120,7 +120,7 @@ const DropdownSeason = styled(Dropdown)`
   }
 `;
 const DropdownEpisode = styled(Dropdown)`
-  left: 3%;
+  left: 2%;
   top: 66%;
   @media (${device.xxl}) {
   }

@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Head from "next/head";
 import useTheme from "@/hooks/useTheme";
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
@@ -67,6 +68,9 @@ export default function Home() {
 
   return (
     <ContainerWrap $isDark={isDark}>
+      <Head>
+        <title>Stars Hallow Books - {showIndoor ? "inside" : "outside"}</title>
+      </Head>
       <Row className="p-4">
         <Col>
           <Toggle isDark={isDark} toggleTheme={toggleTheme} />
