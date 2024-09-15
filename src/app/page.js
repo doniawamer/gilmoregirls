@@ -24,6 +24,8 @@ const sacramento = Sacramento({
   weight: ["400"],
 });
 
+const DESKTOP_WIDTH_THRESHOLD = 1024;
+const HEIGHT_THRESHOLD = 460;
 
 const ContainerWrap = styled(Container)`
   width: 100%;
@@ -135,7 +137,7 @@ export default function Home() {
   const [showOutdoor, setShowOutdoor] = useState(true);
   const [showIndoor, setShowIndoor] = useState(false);
   const [isOutdoorInDOM, setIsOutdoorInDOM] = useState(true);
-  const [isPageTallEnough, setIsPageTallEnough] = useState(true);
+  // const [isPageTallEnough, setIsPageTallEnough] = useState(true);
 
   const handleHideOutdoor = () => {
     setShowOutdoor(false);
@@ -145,19 +147,22 @@ export default function Home() {
     }, 600);
   };
 
-  useEffect(() => {
-    const checkHeight = () => {
-      setIsPageTallEnough(window.innerHeight >= 700);
-    };
+  // useEffect(() => {
+  //   const checkSize = () => {
+  //     setIsPageTallEnough(
+  //       window.innerHeight >= HEIGHT_THRESHOLD &&
+  //         window.innerWidth >= DESKTOP_WIDTH_THRESHOLD
+  //     );
+  //   };
 
-    checkHeight();
+  //   checkSize();
 
-    window.addEventListener("resize", checkHeight);
+  //   window.addEventListener("resize", checkSize);
 
-    return () => {
-      window.removeEventListener("resize", checkHeight);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", checkSize);
+  //   };
+  // }, []);
 
   return (
     <ContainerWrap $isDark={isDark} className={poppins.className}>
@@ -166,29 +171,29 @@ export default function Home() {
           <Toggle isDark={isDark} toggleTheme={toggleTheme} />
         </Col>
       </Row>
-      {!isPageTallEnough && (
+      {/* {!isPageTallEnough && (
         <WarningMessage $isDark={isDark}>
           <p>
             Looks like the Stars Hollow bookstore needs more space — expand your
             window to step inside!
           </p>
         </WarningMessage>
-      )}
-      {isPageTallEnough && (
-        <StoreWrap onClick={handleHideOutdoor}>
-          {isOutdoorInDOM && (
-            <FadeContainer $isVisible={showOutdoor}>
-              <OutdoorImage isDark={isDark} />
-            </FadeContainer>
-          )}
-
-          <SlantedBackground $isVisible={showIndoor} $isDark={isDark} />
-
-          <FadeContainer $isVisible={showIndoor}>
-            <Indoor isDark={isDark} />
+      )} */}
+      {/* {isPageTallEnough && ( */}
+      <StoreWrap onClick={handleHideOutdoor}>
+        {isOutdoorInDOM && (
+          <FadeContainer $isVisible={showOutdoor}>
+            <OutdoorImage isDark={isDark} />
           </FadeContainer>
-        </StoreWrap>
-      )}
+        )}
+
+        <SlantedBackground $isVisible={showIndoor} $isDark={isDark} />
+
+        <FadeContainer $isVisible={showIndoor}>
+          <Indoor isDark={isDark} />
+        </FadeContainer>
+      </StoreWrap>
+      {/* )} */}
       <div id="modal-root" />
       <MadeWithLove $isDark={isDark}>
         <a href="https://doniawamer.com" target="_blank">
