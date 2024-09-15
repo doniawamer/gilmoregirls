@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import Head from "next/head";
 import useTheme from "@/hooks/useTheme";
 import { Poppins, Sacramento } from "@next/font/google";
 
@@ -24,6 +23,7 @@ const sacramento = Sacramento({
   subsets: ["latin"],
   weight: ["400"],
 });
+
 
 const ContainerWrap = styled(Container)`
   width: 100%;
@@ -147,7 +147,6 @@ export default function Home() {
 
   useEffect(() => {
     const checkHeight = () => {
-      console.log("window.innerHeight", window.innerHeight);
       setIsPageTallEnough(window.innerHeight >= 700);
     };
 
@@ -162,9 +161,6 @@ export default function Home() {
 
   return (
     <ContainerWrap $isDark={isDark} className={poppins.className}>
-      <Head>
-        <title>Stars Hallow Books - {showIndoor ? "inside" : "outside"}</title>
-      </Head>
       <Row className="p-4">
         <Col>
           <Toggle isDark={isDark} toggleTheme={toggleTheme} />
