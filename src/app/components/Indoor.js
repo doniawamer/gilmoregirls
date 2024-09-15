@@ -116,7 +116,7 @@ const BookStoreWrap = styled.div`
   /* min-width: 1183px; */
   height: 786px;
 
-  @media (${device.md}) {
+  @media (${device.lg}) {
     background-size: contain;
   }
   @media (${device.xl}) {

@@ -5,7 +5,9 @@ export const colors = {
   light: {
     background: "#FCF8F5",
     text: "#0F2434",
-
+    link: "#0F2434",
+    hover: "#F3BEB3",
+    
     // toggle
     toggleBackground: "#2D495E",
     toggleBorder: "#0F2434",
@@ -13,6 +15,8 @@ export const colors = {
   dark: {
     background: "#0F2334",
     text: "#FCF8F5",
+    link: "#EEE7E0",
+    hover: "#F4927F",
 
     // toggle
     toggleBackground: "#FCF7F5",

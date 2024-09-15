@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import useTheme from "@/hooks/useTheme";
-import { Poppins } from "@next/font/google";
+import { Poppins, Sacramento } from "@next/font/google";
 
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
@@ -18,6 +18,11 @@ import { device } from "@/theme/mediaQuery";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "700"],
+});
+
+const sacramento = Sacramento({
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 const ContainerWrap = styled(Container)`
@@ -104,6 +109,27 @@ const WarningMessage = styled.div`
   }
 `;
 
+const MadeWithLove = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 14px;
+  font-family: ${sacramento.style.fontFamily};
+  color: ${({ theme, $isDark }) =>
+    $isDark ? theme.palette.dark.link : theme.palette.light.link};
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: ${({ theme, $isDark }) =>
+        $isDark ? theme.palette.dark.hover : theme.palette.light.hover};
+    }
+  }
+`;
+
 export default function Home() {
   const [isDark, toggleTheme] = useTheme();
   const [showOutdoor, setShowOutdoor] = useState(true);
@@ -121,7 +147,7 @@ export default function Home() {
 
   useEffect(() => {
     const checkHeight = () => {
-      console.log('window.innerHeight', window.innerHeight)
+      console.log("window.innerHeight", window.innerHeight);
       setIsPageTallEnough(window.innerHeight >= 700);
     };
 
@@ -168,6 +194,11 @@ export default function Home() {
         </StoreWrap>
       )}
       <div id="modal-root" />
+      <MadeWithLove $isDark={isDark}>
+        <a href="https://doniawamer.com" target="_blank">
+          Made with love ♥
+        </a>
+      </MadeWithLove>
     </ContainerWrap>
   );
 }
