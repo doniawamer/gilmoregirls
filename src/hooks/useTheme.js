@@ -4,7 +4,6 @@ const useTheme = () => {
   const [isDark, setIsDark] = useState(() => {
     const savedTheme =
       typeof window !== "undefined" ? localStorage.getItem("theme") : "light";
-      console.log('savedTheme, ', savedTheme, savedTheme === "dark")
     return savedTheme === "dark";
   });
 

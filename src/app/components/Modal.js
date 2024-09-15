@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import { device } from "@/theme/mediaQuery";
 
 const CHARACTER = [
   "Lorelai Gilmore",
@@ -67,44 +68,77 @@ const slideUp = keyframes`
 
 const ModalWrap = styled.div`
   position: fixed;
-  top: 20%;
-  left: calc(50% - 184px);
-  transform: translate(-50%, -50%);
-  width: 430.16px;
-  height: 657.29px;
+  width: 320px;
+  height: 488.97px;
+  top: calc(50% - 164px);
+  left: calc(50% - 160px);
   background: url("/images/modal.svg") no-repeat center center;
   background-size: contain;
   padding: 20px;
   animation: ${slideUp} 0.5s ease forwards;
   z-index: 7;
+  max-width: 100vw;
+  max-height: 100vh;
+
+  @media (${device.md}) {
+    width: 430.16px;
+    height: 657.29px;
+    top: calc(50% - 328px);
+    left: calc(50% - 215px);
+  }
 
   h2 {
-    font-size: 12px;
     color: #333;
-    margin-top: 45px;
-    padding-left: 80px;
+    font-size: 10px;
     padding-right: 25px;
+    margin-top: 27px;
+    padding-left: 59px;
+    @media (${device.md}) {
+      font-size: 12px;
+      margin-top: 45px;
+      padding-left: 80px;
+    }
   }
 
   > p {
-    font-size: 12px;
-    color: #333;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
 
-    margin-top: 27px;
-    padding-left: 80px;
+    color: #333;
+    min-height: 30px;
     padding-right: 25px;
+    margin-top: 12px;
+    padding-left: 59px;
+
+    @media (${device.md}) {
+      font-size: 12px;
+      margin-top: 21px;
+      padding-left: 80px;
+    }
   }
 `;
 
 const Checkout = styled.div`
-  margin-top: 92px;
-  padding: 0 40px;
+  margin-top: 64px;
+  padding: 0 20px;
+
+  @media (${device.md}) {
+    margin-top: 88px;
+    padding: 0 40px;
+  }
 
   p {
-    font-size: 12px;
+    font-size: 10px;
     color: #333;
     display: flex;
-    column-gap: 55px;
+    column-gap: 35px;
+    margin-bottom: 10px;
+    @media (${device.md}) {
+      margin-bottom: 20px;
+      font-size: 12px;
+      column-gap: 85px;
+    }
   }
 
   .date {
@@ -154,7 +188,6 @@ const getRandomCharacters = (array, max = 3) => {
 
 const Modal = ({ showModal, selectedBook, onClose }) => {
   const checkout = getRandomCharacters(CHARACTER);
-  console.log("checkout", checkout);
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (e.target.id === "overlay") {
