@@ -25,12 +25,16 @@ const IndoorWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 10px;
+
+  @media (${device.md}) {
+    margin-top: 50px;
+  }
 
   &:before {
     content: "";
     position: absolute;
-    top: -244px;
+    top: -210px;
     left: 50%;
     transform: translateX(-50%);
     width: 138px;
@@ -40,6 +44,9 @@ const IndoorWrap = styled.div`
     z-index: 3;
     filter: ${({ $isDark }) => ($isDark ? "brightness(0.9)" : "brightness(1)")};
     transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    @media (${device.md}) {
+      top: -244px;
+    }
   }
 `;
 
@@ -77,7 +84,7 @@ const Frame = styled.div`
 
 const Books = styled.div`
   position: absolute;
-  top: 50%;
+  top: 73%;
   left: 0;
   transform: translateY(-50%);
   display: flex;
@@ -91,6 +98,10 @@ const Books = styled.div`
 
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (min-width: 450px) {
+    top: 50%;
   }
 
   @media (min-width: 600px) {
@@ -111,10 +122,15 @@ const BookStoreWrap = styled.div`
   filter: ${({ $isDark }) => ($isDark ? "brightness(0.9)" : "brightness(1)")};
   transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   background: url("/images/bookstore.svg") no-repeat center center;
-  background-size: cover;
+  background-position: center -44px;
+  overflow: hidden;
   width: 100%;
   /* min-width: 1183px; */
   height: 786px;
+
+  @media (min-width: 450px) {
+    background-position: center;
+  }
 
   @media (${device.lg}) {
     background-size: contain;
@@ -133,10 +149,13 @@ const BookStoreWrap = styled.div`
 const DropdownWrap = styled.div`
   z-index: 9;
   display: flex;
-  gap: 24px;
+  gap: 12px 24px;
   margin: 32px 12px 0;
   flex-wrap: wrap;
   justify-content: center;
+  @media (min-width: 450px) {
+    flex-wrap: nowrap;
+  }
 `;
 
 const DropdownSeason = styled(Dropdown)`
@@ -426,7 +445,7 @@ const BookWrap = styled.div`
 
   &:hover {
     filter: brightness(1.02);
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-2px) scale(0.99);
   }
 `;
 

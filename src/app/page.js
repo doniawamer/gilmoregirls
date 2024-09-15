@@ -24,8 +24,8 @@ const sacramento = Sacramento({
   weight: ["400"],
 });
 
-const DESKTOP_WIDTH_THRESHOLD = 1024;
-const HEIGHT_THRESHOLD = 460;
+const MIN_WIDTH_THRESHOLD = 320;
+const MIN_HEIGHT_THRESHOLD = 480;
 
 const ContainerWrap = styled(Container)`
   width: 100%;
@@ -101,11 +101,15 @@ const WarningMessage = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  font-size: 24px;
+  font-size: 12px;
+  padding: 0 12px;
   text-align: center;
   color: ${({ theme, $isDark }) =>
     $isDark ? theme.palette.dark.text : theme.palette.light.text};
 
+  @media (${device.md}) {
+    font-size: 24px;
+  }
   & p {
     max-width: 600px;
   }
@@ -113,13 +117,13 @@ const WarningMessage = styled.div`
 
 const MadeWithLove = styled.div`
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 5px;
+  right: 5px;
   font-size: 14px;
   font-family: ${sacramento.style.fontFamily};
   color: ${({ theme, $isDark }) =>
     $isDark ? theme.palette.dark.link : theme.palette.light.link};
-
+  opacity: 80%;
   a {
     color: inherit;
     text-decoration: none;
@@ -137,7 +141,7 @@ export default function Home() {
   const [showOutdoor, setShowOutdoor] = useState(true);
   const [showIndoor, setShowIndoor] = useState(false);
   const [isOutdoorInDOM, setIsOutdoorInDOM] = useState(true);
-  // const [isPageTallEnough, setIsPageTallEnough] = useState(true);
+  const [isScreenTooSmall, setIsScreenTooSmall] = useState(false);
 
   const handleHideOutdoor = () => {
     setShowOutdoor(false);
@@ -146,23 +150,25 @@ export default function Home() {
       setIsOutdoorInDOM(false);
     }, 600);
   };
+  useEffect(() => {
+    const checkScreenSize = () => {
+      if (
+        window.innerWidth < MIN_WIDTH_THRESHOLD ||
+        window.innerHeight < MIN_HEIGHT_THRESHOLD
+      ) {
+        setIsScreenTooSmall(true);
+      } else {
+        setIsScreenTooSmall(false);
+      }
+    };
 
-  // useEffect(() => {
-  //   const checkSize = () => {
-  //     setIsPageTallEnough(
-  //       window.innerHeight >= HEIGHT_THRESHOLD &&
-  //         window.innerWidth >= DESKTOP_WIDTH_THRESHOLD
-  //     );
-  //   };
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
 
-  //   checkSize();
-
-  //   window.addEventListener("resize", checkSize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", checkSize);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
 
   return (
     <ContainerWrap $isDark={isDark} className={poppins.className}>
@@ -171,29 +177,29 @@ export default function Home() {
           <Toggle isDark={isDark} toggleTheme={toggleTheme} />
         </Col>
       </Row>
-      {/* {!isPageTallEnough && (
+      {isScreenTooSmall && (
         <WarningMessage $isDark={isDark}>
           <p>
             Looks like the Stars Hollow bookstore needs more space — expand your
             window to step inside!
           </p>
         </WarningMessage>
-      )} */}
-      {/* {isPageTallEnough && ( */}
-      <StoreWrap onClick={handleHideOutdoor}>
-        {isOutdoorInDOM && (
-          <FadeContainer $isVisible={showOutdoor}>
-            <OutdoorImage isDark={isDark} />
+      )}
+      {!isScreenTooSmall && (
+        <StoreWrap onClick={handleHideOutdoor}>
+          {isOutdoorInDOM && (
+            <FadeContainer $isVisible={showOutdoor}>
+              <OutdoorImage isDark={isDark} />
+            </FadeContainer>
+          )}
+
+          <SlantedBackground $isVisible={showIndoor} $isDark={isDark} />
+
+          <FadeContainer $isVisible={showIndoor}>
+            <Indoor isDark={isDark} />
           </FadeContainer>
-        )}
-
-        <SlantedBackground $isVisible={showIndoor} $isDark={isDark} />
-
-        <FadeContainer $isVisible={showIndoor}>
-          <Indoor isDark={isDark} />
-        </FadeContainer>
-      </StoreWrap>
-      {/* )} */}
+        </StoreWrap>
+      )}
       <div id="modal-root" />
       <MadeWithLove $isDark={isDark}>
         <a href="https://doniawamer.com" target="_blank">
