@@ -121,7 +121,8 @@ export default function Home() {
 
   useEffect(() => {
     const checkHeight = () => {
-      setIsPageTallEnough(window.innerHeight >= 1000);
+      console.log('window.innerHeight', window.innerHeight)
+      setIsPageTallEnough(window.innerHeight >= 700);
     };
 
     checkHeight();

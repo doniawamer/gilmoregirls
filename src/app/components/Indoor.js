@@ -17,7 +17,6 @@ const BOOK_COVERS = {
   BLUE: 4,
 };
 
-
 const IndoorWrap = styled.div`
   position: relative;
   width: 100%;
@@ -31,7 +30,7 @@ const IndoorWrap = styled.div`
   &:before {
     content: "";
     position: absolute;
-    top: -210px;
+    top: -244px;
     left: 50%;
     transform: translateX(-50%);
     width: 138px;
@@ -69,7 +68,7 @@ const Frame = styled.div`
 
   @media (${device.xxl}) {
     left: 3%;
-    top: 50%;
+    top: 45%;
   }
   @media (${device.xxxl}) {
     left: 10%;
