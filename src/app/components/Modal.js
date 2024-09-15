@@ -91,7 +91,7 @@ const ModalWrap = styled.div`
     color: #333;
     font-size: 10px;
     padding-right: 25px;
-    margin-top: 27px;
+    margin-top: 29px;
     padding-left: 59px;
     @media (${device.md}) {
       font-size: 12px;
@@ -133,7 +133,7 @@ const Checkout = styled.div`
     color: #333;
     display: flex;
     column-gap: 35px;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
     @media (${device.md}) {
       margin-bottom: 20px;
       font-size: 12px;
