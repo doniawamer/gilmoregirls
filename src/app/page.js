@@ -120,7 +120,8 @@ const MadeWithLove = styled.div`
   bottom: 5px;
   right: 5px;
   font-size: 14px;
-  font-family: ${sacramento.style.fontFamily};
+  /* font-family: ${sacramento.style.fontFamily}; */
+  font-weight: 400;
   color: ${({ theme, $isDark }) =>
     $isDark ? theme.palette.dark.link : theme.palette.light.link};
   opacity: 80%;
